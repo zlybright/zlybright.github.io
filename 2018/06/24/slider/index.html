@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+    
+
+    
+    <title>Slider 滑动控件实现 | Something in JS</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="" />
+    
+    <meta name="description" content="要求： 滑动容器内部元素任意宽度， slider 根据元素宽度滚动内部内容，要求在停止滚动时每个元素都能被看到，不能有遮挡，或跳过">
+<meta name="keywords" content="javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Slider 滑动控件实现">
+<meta property="og:url" content="http://yoursite.com/2018/06/24/slider/index.html">
+<meta property="og:site_name" content="Something in JS">
+<meta property="og:description" content="要求： 滑动容器内部元素任意宽度， slider 根据元素宽度滚动内部内容，要求在停止滚动时每个元素都能被看到，不能有遮挡，或跳过">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-06-24T14:39:37.405Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Slider 滑动控件实现">
+<meta name="twitter:description" content="要求： 滑动容器内部元素任意宽度， slider 根据元素宽度滚动内部内容，要求在停止滚动时每个元素都能被看到，不能有遮挡，或跳过">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.2.4/jquery.min.js"></script>
+    
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a style="color:#fff;font-size:2em;text-decoration:none" href="/">
+                            JAVASCRIPT 常用套路
+                        </a>
+                    </h1>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">主页</a>
+                                </li>
+                            
+                                        
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">关于</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/tag/index.html">标签</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    未分类
+    </h1>
+</div>
+                        <div class="main-body-content">
+                            <article id="post-slider" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        Slider 滑动控件实现
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2018/06/24/slider/" class="article-date">
+            <time datetime="2018-06-24T14:49:03.224Z" itemprop="datePublished">2018-06-24</time>
+        </a>
+    </div>
+
+                
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h4 id="要求：-滑动容器内部元素任意宽度，-slider-根据元素宽度滚动内部内容，要求在停止滚动时每个元素都能被看到，不能有遮挡，或跳过"><a href="#要求：-滑动容器内部元素任意宽度，-slider-根据元素宽度滚动内部内容，要求在停止滚动时每个元素都能被看到，不能有遮挡，或跳过" class="headerlink" title="要求： 滑动容器内部元素任意宽度， slider 根据元素宽度滚动内部内容，要求在停止滚动时每个元素都能被看到，不能有遮挡，或跳过"></a>要求： 滑动容器内部元素任意宽度， slider 根据元素宽度滚动内部内容，要求在停止滚动时每个元素都能被看到，不能有遮挡，或跳过</h4><a id="more"></a>
+<!--mymark--><html><script src="/libs/slide/slide2.js"></script><script>$(function(){new slide({el : $("#s1"),prev: $(".left-btn" ,"#s1"),next: $(".right-btn" , "#s1"),scrollLoop:false,scrollbar : true});new slide({el : $("#s2"),prev: $(".left-btn" ,"#s2"),next: $(".right-btn" , "#s2"),scrollLoop:false,scrollbar : true});new slide({el : $("#s3"),prev: $(".left-btn" ,"#s3"),next: $(".right-btn" , "#s3"),lastItemOffset:10,scrollLoop:false,scrollbar : true})})</script><!--在这里插入内容--><style>.slide-wrap{overflow: hidden; margin:0;padding:0;height:100px;width:200px;position:relative;}.slide-inline{width:20000px;}.slide-inline ul{padding:0;margin:0;}.slide-item{float:left; height: 100px;line-height:100px;color:#fff;text-align: center;}.c1{background-color: red}.c2{background-color: green}.c3{background-color: blue}.c4{background-color: gray}.left-btn,.right-btn{position: absolute; top:40%;left:0; background-color: #fff;cursor: pointer;font-family: serif;text-decoration: none}.right-btn{right:0;left:auto;}#s1 .slide-item{width:200px;}#s2 .c1{ width:100px; }#s2 .c2{ width:150px; }#s2 .c3{ width:80px; }#s2 .c4{ width:200px; }#s3 .c1{ width:60px; }#s3 .c2{ width:60px; }#s3 .c3{ width:60px; }#s3 .c4{ width:100px; }</style><div style="width: 200px;border:solid 1px #ccc"><div id="s1" class="slide-wrap"><div class="slide-inline"><ul class="slide-item-wrap"><li class="slide-item c1">1</li><li class="slide-item c2">2</li><li class="slide-item c3">3</li><li class="slide-item c4">4</li></ul></div><a class="left-btn">&lt;</a><a class="right-btn">&gt;</a></div></div>example1<div style="width: 200px;border:solid 1px #ccc"><div id="s2" class="slide-wrap"><div class="slide-inline"><ul class="slide-item-wrap"><li class="slide-item c1">1</li><li class="slide-item c2">2</li><li class="slide-item c3">3</li><li class="slide-item c4">4</li><li class="slide-item c1">5</li><li class="slide-item c2">6</li><li class="slide-item c3">7</li><li class="slide-item c4">8</li></ul></div><a class="left-btn">&lt;</a><a class="right-btn">&gt;</a></div></div>example2<div style="width: 200px;border:solid 1px #ccc"><div id="s3" class="slide-wrap"><div class="slide-inline"><ul class="slide-item-wrap"><li class="slide-item c1">1</li><li class="slide-item c2">2</li><li class="slide-item c3">3</li><li class="slide-item c4">4</li><li class="slide-item c1">5</li><li class="slide-item c2">6</li><li class="slide-item c3">7</li><li class="slide-item c4">8</li></ul></div><a class="left-btn">&lt;</a><a class="right-btn">&gt;</a></div></div>example3</html><br><br><br><br>思路:<br>0. slider 容器内部元素称为slide-item<br>1. 初始化时把这些 slide-item 并列排成一排， 这一整排会很长，超出了容器的宽度，容器需要overflow:hidden<br>2. 首先想象滚动1个slide-item ，slide-item 宽度正好是容器宽度，这样滚动到第二张时容器正好呈现第二张<br>3. 再想象如果首屏显示<strong>第1张和第2张的一半</strong> （1.5 张）那下次滚动后应该呈现什么内容？ 容器左边界应该跟第2张左边界对其， 那么滚动的距离是 <strong>第1张宽度，同时也是第2张的起始位置</strong><br>4. 再想象如果首屏显示（<strong>3.2 张</strong>）那下次滚动后应该呈现什么内容？ 容器左边界应该跟第4张左边界对其， 那么滚动的距离其实是  <strong>前3张总宽度同时也是第4张的起始位置</strong> （无论他们之间的宽度是否相等）<br>5. 每次滚动 slider 容器的宽度后可能会有元素卡在容器左边界上（看不全），所以我们可以提前计算出卡在左边界的元素，让滑动的距离是该元素的起始位置<br><br><html><div style="border:solid 2px #ccc;height:100px;width:200px;padding-top:10px; margin:auto;"><div style="width:1000px;text-align: center;"><div style="color:#fff;float:left;background-color:blue;width:80px;height:80px;line-height:80px">1</div><div style="color:#fff;float:left;background-color:green;width:100px;height:80px;line-height:80px">2</div><div style="color:#fff;float:left;background-color:red;width:100px;height:80px;line-height:80px">3</div></div></div><br><div style="border:dashed 2px #ccc;height:100px;width:200px;padding-top:10px;margin:auto;"><div style="width:1000px;text-align: center; margin-left:-200px"><div style="color:#fff;float:left;background-color:blue;width:80px;height:80px;line-height:80px">1</div><div style="color:#fff;float:left;background-color:green;width:100px;height:80px;line-height:80px">2</div><div style="color:#fff;float:left;background-color:red;width:100px;height:80px;line-height:80px">3</div></div></div></html>
+
+<!--mymark--><ol start="6">
+<li>算法：<br> a.计算出所有slide-item的位置<br> b.计算每一屏滚动距离 （每次加一屏的距离 看看有没有元素卡在左边界上，看不全）<br> c.具体实现在 /libs/slide/slide2.js<br><code><br>//计算每一个slide-item 的位置 itemPosArr<br> computeItemPosArray:function(){   <pre><code>...
+</code></pre> },<br></code><br><code><br>//计算每次滚动距离存入数组 stepArr<br> computeNextPosArray:function(){ <pre><code>...
+</code></pre> }<br></code></li>
+</ol>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://yoursite.com/2018/06/24/slider/" data-id="cjisydupf0001dgbt84vmuph7" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <!--
+    <div class="sidebar-top">
+        <p>关注我 :</p>
+        <ul class="social-links">
+            
+        </ul>
+    </div>
+    -->
+    
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2018/06/17/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">上一篇</strong>
+        <p class="article-nav-title">Hello World</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/06/24/slider/" class="title">Slider 滑动控件实现</a></p>
+                            <p class="item-date"><time datetime="2018-06-24T14:49:03.224Z" itemprop="datePublished">2018-06-24</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/06/17/hello-world/" class="title">Hello World</a></p>
+                            <p class="item-date"><time datetime="2018-06-17T13:45:12.164Z" itemprop="datePublished">2018-06-17</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+
+            
+                
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2018 zlyright</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'http://yoursite.com/2018/06/24/slider/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+   //(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
